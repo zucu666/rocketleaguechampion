@@ -50,7 +50,7 @@ while ($true) {
 
     if ([Win32]::GetAsyncKeyState(0x7B) -lt 0) { break } # F12
 
-    $doRight = ([Win32]::GetAsyncKeyState(0x05) -lt 0)
+    $doLeft = ([Win32]::GetAsyncKeyState(0x06) -lt 0)
 
     if ($doLeft -or $doRight) {
 
