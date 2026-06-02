@@ -50,9 +50,10 @@ while ($true) {
 
     if ([Win32]::GetAsyncKeyState(0x7B) -lt 0) { break } # F12
 
+    # DOAR BUTONUL DIN FATA (XBUTTON2)
     $doLeft = ([Win32]::GetAsyncKeyState(0x06) -lt 0)
 
-    if ($doLeft -or $doRight) {
+    if ($doLeft) {
 
         $pair = $config[$idx % $config.Count]
         $idx++
@@ -60,13 +61,11 @@ while ($true) {
         $downDelay = [Math]::Max(1, $pair[0] + $rand.Next(-2,2))
         $upDelay   = [Math]::Max(1, $pair[1] + $rand.Next(-2,2))
 
-        if ($doLeft)  { [Win32]::mouse_event([Win32]::LEFTDOWN,  0,0,0,0) }
-        if ($doRight) { [Win32]::mouse_event([Win32]::RIGHTDOWN, 0,0,0,0) }
+        [Win32]::mouse_event([Win32]::LEFTDOWN, 0,0,0,0)
 
         SpinWaitMs $downDelay
 
-        if ($doLeft)  { [Win32]::mouse_event([Win32]::LEFTUP,  0,0,0,0) }
-        if ($doRight) { [Win32]::mouse_event([Win32]::RIGHTUP, 0,0,0,0) }
+        [Win32]::mouse_event([Win32]::LEFTUP, 0,0,0,0)
 
         SpinWaitMs $upDelay
     }
